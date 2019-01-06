@@ -10,6 +10,7 @@ class Entrant
   field :gender, type: Placing
   field :group, type: Placing
 
+  embeds_one :racer, as: :parent, class_name: "RacerInfo"
   embeds_one :race, class_name: "RaceRef"
   embeds_many :results, class_name: "LegResult", order: :"event.o".asc, after_add: :update_total
 
