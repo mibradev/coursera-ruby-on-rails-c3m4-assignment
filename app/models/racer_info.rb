@@ -15,4 +15,14 @@ class RacerInfo
   validates :last_name, presence: true
   validates :gender, presence: true, inclusion: { in: ["M", "F"] }
   validates :birth_year, presence: true, numericality: { less_than: Date.current.year }
+
+  [:city, :state].each do |action|
+    define_method(action) { residence&.send(action) }
+
+    define_method("#{action}=") do |name|
+      object = residence || Address.new
+      object.send("#{action}=", name)
+      self.residence = object
+    end
+  end
 end

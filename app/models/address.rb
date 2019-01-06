@@ -13,7 +13,7 @@ class Address
     end
   end
 
-  def initialize(city, state, location)
+  def initialize(city = nil, state = nil, location = nil)
     self.city = city
     self.state = state
     self.location = Point.demongoize(location)
