@@ -10,10 +10,15 @@ class Entrant
   field :gender, type: Placing
   field :group, type: Placing
 
+  embeds_one :race, class_name: "RaceRef"
   embeds_many :results, class_name: "LegResult", order: :"event.o".asc, after_add: :update_total
 
   def update_total(result)
     self.secs ||= 0.0
     self.secs += result.secs
+  end
+
+  def the_race
+    race.race
   end
 end
