@@ -17,7 +17,7 @@ class RacerInfo
   validates :birth_year, presence: true, numericality: { less_than: Date.current.year }
 
   [:city, :state].each do |action|
-    define_method(action) { residence&.send(action) }
+    define_method(action) { residence && residence.send(action) }
 
     define_method("#{action}=") do |name|
       object = residence || Address.new

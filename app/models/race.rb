@@ -50,7 +50,7 @@ class Race
   end
 
   [:city, :state].each do |action|
-    define_method(action) { location&.send(action) }
+    define_method(action) { location && location.send(action) }
 
     define_method("#{action}=") do |name|
       object = location || Address.new
@@ -65,8 +65,8 @@ class Race
   end
 
   def get_group(racer)
-    if racer&.birth_year && racer.gender
-      min_age = (date.year - racer.birth_year).floor(-1)
+    if racer && racer.birth_year && racer.gender
+      min_age = (date.year - racer.birth_year) / 10 * 10
       max_age = min_age + 9
 
       Placing.demongoize(name: min_age >= 60 ? "masters #{racer.gender}" : "#{min_age} to #{max_age} (#{racer.gender})")
