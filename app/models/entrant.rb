@@ -31,6 +31,9 @@ class Entrant
   delegate :name, :name=, to: :race, prefix: :race
   delegate :date, :date=, to: :race, prefix: :race
 
+  scope :upcoming, -> { where(:"race.date".gte => Date.current ) }
+  scope :past, -> { where(:"race.date".lt => Date.current) }
+
   RESULTS.each_key do |name|
     define_method(name) do
       result = results.select { |result| name.to_s == result.event.name if result.event }.first
