@@ -45,11 +45,11 @@ group :development do
   gem 'spring'
 end
 
-group :production do
-  # use postgres on heroku
-  gem 'pg', '~> 0.18'
-  gem 'rails_12factor'
-end
+#group :production do
+  #use postgres on heroku
+#  gem 'pg'
+#  gem 'rails_12factor'
+#end
 
 group :test do
     gem 'rspec-rails', '~> 3.0'
@@ -59,4 +59,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'mongoid', '~> 5.4.0'
+gem 'mongoid', '~> 5.0.0'
+gem 'httparty'
+gem 'responders', '~> 2.0'
