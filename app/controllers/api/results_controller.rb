@@ -4,8 +4,11 @@ module Api
       unless request.accept && request.accept != "*/*"
         render plain: "/api/races/#{params[:race_id]}/results"
       else
-        @race = Race.find(params[:race_id])
-        @entrants = @race.entrants
+        race = Race.find(params[:race_id])
+
+        if stale?(last_modified: race.entrants.max(:updated_at))
+          @entrants = race.entrants
+        end
       end
     end
 
