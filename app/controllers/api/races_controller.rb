@@ -1,9 +1,13 @@
 module Api
   class RacesController < ApiController
-    before_action :set_race, only: [:show, :edit, :update, :destroy]
+    before_action :set_race, only: [:edit, :update, :destroy]
 
     rescue_from Mongoid::Errors::DocumentNotFound do
       render plain: "woops: cannot find race[#{params[:id]}]", status: :not_found
+    end
+
+    rescue_from ActionController::UnknownFormat do |exception|
+      render plain: "woops: we do not support that content-type[#{request.accept}]", status: :unsupported_media_type
     end
 
     def index
@@ -16,7 +20,17 @@ module Api
       unless request.accept && request.accept != "*/*"
         render plain: "/api/races/#{params[:id]}"
       else
-        render json: @race
+        respond_to do |format|
+          @race = Race.where(id: params[:id]).first
+
+          if @race
+            format.json { render :show }
+            format.xml { render :show }
+          else
+            format.json { render :error_msg, status: :not_found }
+            format.xml { render :error_msg, status: :not_found }
+          end
+        end
       end
     end
 
