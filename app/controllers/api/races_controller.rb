@@ -2,7 +2,7 @@ module Api
   class RacesController < ApiController
     def index
       unless request.accept && request.accept != "*/*"
-        render plain: "/api/races"
+        render plain: "/api/races, offset=[#{params[:offset]}], limit=[#{params[:limit]}]"
       end
     end
 
@@ -20,7 +20,8 @@ module Api
 
     def create
       unless request.accept && request.accept != "*/*"
-        render plain: :nothing, status: :ok
+        race_name = params[:race][:name] if params[:race]
+        render plain: race_name, status: :ok
       end
     end
 
