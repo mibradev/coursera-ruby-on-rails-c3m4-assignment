@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.8'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', group: :development
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -33,6 +31,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3', '~> 1.3.0'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 end
@@ -45,17 +46,17 @@ group :development do
   gem 'spring'
 end
 
-#group :production do
-  #use postgres on heroku
-#  gem 'pg'
-#  gem 'rails_12factor'
-#end
-
 group :test do
-    gem 'rspec-rails', '~> 3.0'
-    gem 'mongoid-rspec', '3.0.0'
-    gem 'capybara'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'mongoid-rspec', '3.0.0'
+  gem 'capybara'
 end
+
+group :production do
+ gem 'pg', '~> 0.18'
+ gem 'rails_12factor'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 

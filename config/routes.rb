@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root "races#index"
+
   resources :races
 
   resources :racers do
